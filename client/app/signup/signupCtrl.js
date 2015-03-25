@@ -10,6 +10,10 @@
     $scope.user = {};
     $scope.inputError = false;
 
+    $scope.googleSignUp = function(){
+      $location.path('auth/google');
+    };
+
     $scope.signUp = function(){
       Auth.signUp($scope.user)
         .then(function (response) {

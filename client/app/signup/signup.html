@@ -1,5 +1,16 @@
 <div id="sign-up-container">
-  <h1>Sign up</h1>
+  <h1>Register with Google</h1>
+  <form>
+
+    <div id="sign-up-error" ng-show="inputError">User already exists. Please choose a different username.</div>
+    
+    <div class="text-center">
+      <button class="btn btn-default center-block" type="submit" value="Submit" ng-click="googleSignUp()">Sign up</button>
+    </div>
+
+  </form>
+  <hr>
+  <h1>Sign up with SOS Distress!</h1>
   <form>
 
     <div id="sign-up-error" ng-show="inputError">User already exists. Please choose a different username.</div>
