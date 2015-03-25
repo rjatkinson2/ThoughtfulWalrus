@@ -34,3 +34,5 @@ results/
 dist/
 
 server/config/creds.js
+
+server/passport/google-client-id.js

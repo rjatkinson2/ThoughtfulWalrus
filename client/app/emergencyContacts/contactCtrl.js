@@ -14,7 +14,7 @@
     $scope.showAddContactForm = function () {
       $scope.addContactForm = true;
       $scope.addContactBtn = false;
-    }
+    };
 
     // Will add a contact into the users emergency contacts.
     // Then it syncs with the database.
@@ -55,20 +55,20 @@
       person.editing = true;
       person.cancelName = person.name;
       person.cancelPhone = person.phone;
-    }
+    };
 
     $scope.deleteContact = function(person){
       ContactEditor.deleteContact(person).then(function(result){
         person.editing = false;
         $scope.getContacts();      
       });
-    }
+    };
 
     $scope.editCancel = function(person){
       person.name =  person.cancelName;
       person.phone =  person.cancelPhone;
       person.editing = false;
-    }
+    };
 
     $scope.getContacts();
   }
