@@ -11,7 +11,14 @@
     $scope.inputError = false;
 
     $scope.googleSignUp = function(){
-      $location.path('auth/google');
+      Auth.googleSignUp()
+        .then(function (response) {
+          $window.localStorage.setItem('distressAuth', response.data.token);
+          $location.path('/');
+        })
+        .catch(function (error) {
+          $scope.inputError = true;
+        });
     };
 
     $scope.signUp = function(){

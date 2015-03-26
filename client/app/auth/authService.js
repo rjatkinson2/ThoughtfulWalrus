@@ -42,6 +42,17 @@
         return response;
       });
     }
+
+    //sends a request to the /user/signup route of the server,
+    //still need to see what the server will respond with
+    function googleSignUp(user){
+      return $http({
+        method: 'GET',
+        url: '/auth/google'
+      }).then(function(response){
+        return response;
+      });
+    }
     
     //need to hookup to a button!
     function logout(){

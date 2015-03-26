@@ -1,20 +1,21 @@
 var express = require('express');
 var passport = require('./passport/passport.js');
 var db = require('./db/config.js');
-
-
-// intantiate express application
 var app = express();
 var mongoose = require('mongoose');
-// grab the user model
 var User = require('./db/models/user.js');
+var userController = require('./users/userController.js');
 
 var port = process.env.PORT || 5000;
 
 // configure our server with all the middleware and and routing
-require('./config/middleware.js')(app, express);
+require('./config/middleware.js')(app, express, passport);
 
-app.get('/', function(req, res) {
+
+app.get('/',
+  function(req, res) {
+    console.log('req.session------------------------');
+    console.log(req.session);
     res.render('index');
     res.end();
 });
@@ -26,16 +27,19 @@ app.get('/auth/google',
     // function will not be called.
   });
 
-app.get('/oauth2callback',
-  passport.authenticate('google', {failureRedirect: '/login'}),
-  function(req, res){
+app.get('/oauth2callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res, next) {
+    
+  },
+  function(req, res) {
+    // Successful authentication, redirect home.
     res.redirect('/');
-  }
-);
+  });
 
 app.get('/logout', function(req, res){
   req.logout();
-  res.redirect('/login');
+  res.redirect('/signin');
 });
 
 console.log('ThoughtfulWalrus is listening on ' + port);

@@ -1,14 +1,17 @@
 var mongoose = require('mongoose');
+var findOrCreate = require('mongoose-findorcreate');
 var Q = require('q');
 var bcrypt = require('bcrypt-nodejs');
 var SALT_WORK_FACTOR = 10;
 
 /// Create the userSchema database with Mongoose (which uses MongoDB). The schema contains a username and an array of emergency contacts.
 var userSchema = mongoose.Schema({
-  username: {type: String, index: { unique: true }, require: true},
-  password:{type: String, require: true},
+  username: {type: String, index: { unique: false }, require: true},
+  password:{type: String},
   firstName: {type: String, require: true},
   lastName: {type: String, require: true},
+  googleName: {type: String},
+  googleID: {type: String},
   emergencyContacts:[{name: String, phone: String, lastMsgStatus: String}],
   salt: String
 });
@@ -53,7 +56,6 @@ userSchema.pre('save', function (next) {
     });
   });
 });
-
 
 var User = mongoose.model('User', userSchema);
 

@@ -1,9 +1,8 @@
-var morgan      = require('morgan'), // used for logging incoming request
-    bodyParser  = require('body-parser'),
-    passport = require('passport'),
+var morgan = require('morgan'), // used for logging incoming request
+    bodyParser = require('body-parser'),
     session = require('express-session');
 
-module.exports = function (app, express) {
+module.exports = function (app, express, passport) {
   // Express 4 allows us to use multiple routers with their own configurations
   var smsRouter = express.Router();
   var userRouter = express.Router();
@@ -11,13 +10,13 @@ module.exports = function (app, express) {
   app.use(morgan('dev'));
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(bodyParser.json());
-
+  // express.static must come before sessions or else express will generate sessions for every static file.
+  app.use(express.static(__dirname + '/../../client'));
   // required by passport to utilize sessions
   app.use(session({ secret: 'let it go' }));
   app.use(passport.initialize());
   app.use(passport.session());
   
-  app.use(express.static(__dirname + '/../../client'));
 
   app.use('/sms', smsRouter); // use sms router for all sms requests
   app.use('/user', userRouter); // use user router for all user requests
