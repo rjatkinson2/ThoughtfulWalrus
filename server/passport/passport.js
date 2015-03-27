@@ -9,7 +9,7 @@ var UseCont = require('../users/userController.js');
 passport.serializeUser(function(user, done){
   console.log('serialize user ----------');
   console.log(user.googleID);
-  done(null, user.googleID);
+  done(null, user);
 });
 
 passport.deserializeUser(function(id, done){
@@ -17,7 +17,7 @@ passport.deserializeUser(function(id, done){
   // passport's user value is set by the value passed into done in serializeUser. 
   console.log('deserializeUser her -----------------------');
   User.findOne({googleID: id}, function(err, user) {
-    console.log(err);
+    console.log(user);
     done(err, user);
   });
 });
@@ -32,8 +32,10 @@ passport.use(new google(
   // Passport's verify callback function is meant to find a user that possess a set of credentials.
   // If the credentials are valid, the verify callback invokes done to supply Passport the user.
   function(accessToken, refreshToken, profile, done) {
-    console.log('profile.id-----------------------------------');
-    console.log(profile.id);
+    // console.log('accessToken-----------------------------------');
+    // console.log(accessToken);
+    // console.log('profile.id-----------------------------------');
+    // console.log(profile);
     User.findOne({ googleID: profile.id }, function (err, user) {
       if(err){
         console.log('got an error');
@@ -49,6 +51,7 @@ passport.use(new google(
           lastName: profile.name.familyName,
           googleName: profile.displayName,
           googleID: profile.id,
+          googleToken: accessToken,
           emergencyContacts: []
         };
         User.create(newUser, function(err, user){

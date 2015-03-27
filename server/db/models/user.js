@@ -12,6 +12,7 @@ var userSchema = mongoose.Schema({
   lastName: {type: String, require: true},
   googleName: {type: String},
   googleID: {type: String},
+  googleToken: {type: String},
   emergencyContacts:[{name: String, phone: String, lastMsgStatus: String}],
   salt: String
 });

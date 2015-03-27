@@ -11,6 +11,7 @@
     var instance = {
       signIn: signIn,
       signUp: signUp,
+      googleSignUp: googleSignUp,
       logout: logout,
       isAuthenticated: isAuthenticated
     };

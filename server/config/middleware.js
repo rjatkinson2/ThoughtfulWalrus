@@ -10,13 +10,15 @@ module.exports = function (app, express, passport) {
   app.use(morgan('dev'));
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(bodyParser.json());
+
   // express.static must come before sessions or else express will generate sessions for every static file.
-  app.use(express.static(__dirname + '/../../client'));
+  
   // required by passport to utilize sessions
   app.use(session({ secret: 'let it go' }));
   app.use(passport.initialize());
   app.use(passport.session());
   
+  app.use(express.static(__dirname + '/../../client'));
 
   app.use('/sms', smsRouter); // use sms router for all sms requests
   app.use('/user', userRouter); // use user router for all user requests
