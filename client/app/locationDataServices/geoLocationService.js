@@ -35,8 +35,8 @@
     /// Description: Stores longitude, latitude, and google maps link to the window. takes callback
     /// returns: Nothing
     function storeLocation(cb, position) {
-      this.latitude = position.coords.latitude;
-      this.longitude = position.coords.longitude;
+      this.latitude = 37.783624;
+      this.longitude = -122.408999;
       this.mapLink = 'http://maps.google.com/?q=' + this.latitude + ',' + this.longitude;
       cb(this.latitude, this.longitude);
     }
