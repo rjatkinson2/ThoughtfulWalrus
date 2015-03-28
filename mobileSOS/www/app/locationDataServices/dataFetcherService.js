@@ -26,7 +26,8 @@
     }
 
     function getEmergencyNumber(coords, callback){
-      EmergencyNumber.getIt(coords, callback);
+      callback(911);
+      // EmergencyNumber.getIt(coords, callback);
     }
   }
 })();
